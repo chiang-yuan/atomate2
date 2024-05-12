@@ -3,14 +3,10 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING
 
 from atomate2 import SETTINGS
 from atomate2.common.flows.elastic import BaseElasticMaker
-from atomate2.forcefields.jobs import CHGNetRelaxMaker
-
-if TYPE_CHECKING:
-    from atomate2.forcefields.jobs import ForceFieldRelaxMaker
+from atomate2.forcefields.jobs import ForceFieldRelaxMaker
 
 
 @dataclass
@@ -60,12 +56,12 @@ class ElasticMaker(BaseElasticMaker):
     sym_reduce: bool = True
     symprec: float = SETTINGS.SYMPREC
     bulk_relax_maker: ForceFieldRelaxMaker | None = field(
-        default_factory=lambda: CHGNetRelaxMaker(
+        default_factory=lambda: ForceFieldRelaxMaker(
             relax_cell=True, relax_kwargs={"fmax": 0.00001}
         )
     )
     elastic_relax_maker: ForceFieldRelaxMaker | None = field(
-        default_factory=lambda: CHGNetRelaxMaker(
+        default_factory=lambda: ForceFieldRelaxMaker(
             relax_cell=False, relax_kwargs={"fmax": 0.00001}
         )
     )  # constant volume relaxation
